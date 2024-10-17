@@ -203,26 +203,6 @@ export type Payment = {
 	processedCount: number
 }
 
-export const tableColumns: ColumnDef<Payment>[] = [
-	{
-		accessorKey: "collectionCompanyName",
-		header: "업체명",
-		cell: ({ row }) => (
-			<div className="capitalize">{row.getValue("collectionCompanyName")}</div>
-		),
-	},
-	{
-		accessorKey: "receivedCount",
-		header: "접수 수",
-		cell: ({ row }) => <div>{row.getValue("receivedCount")}</div>,
-	},
-	{
-		accessorKey: "processedCount",
-		header: "처리 수",
-		cell: ({ row }) => <div>{row.getValue("processedCount")}</div>,
-	},
-]
-
 export default function DashboardPage() {
 	const sidebar = useStore(useSidebar, x => x)
 	const pieChartTotalVisitors = useMemo(() => {
@@ -232,6 +212,28 @@ export default function DashboardPage() {
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
+
+	const tableColumns: ColumnDef<Payment>[] = [
+		{
+			accessorKey: "collectionCompanyName",
+			header: "업체명",
+			cell: ({ row }) => (
+				<div className="capitalize">
+					{row.getValue("collectionCompanyName")}
+				</div>
+			),
+		},
+		{
+			accessorKey: "receivedCount",
+			header: "접수 수",
+			cell: ({ row }) => <div>{row.getValue("receivedCount")}</div>,
+		},
+		{
+			accessorKey: "processedCount",
+			header: "처리 수",
+			cell: ({ row }) => <div>{row.getValue("processedCount")}</div>,
+		},
+	]
 
 	const table = useReactTable({
 		data: tableData,

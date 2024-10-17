@@ -1,14 +1,20 @@
 "use client"
 
+import React from "react"
 import { redirect } from "next/navigation"
 import { PATH } from "@/constants/path"
 
 import { useCurrentUser } from "@/hooks/use-current-user"
 
-export default function BeforLoginPage() {
+interface BeforLoginLayoutProps {
+	children: React.ReactNode
+}
+
+export default function BeforLoginLayout({ children }: BeforLoginLayoutProps) {
 	const user = useCurrentUser()
 	if (user) {
 		redirect(PATH.DASHBOARD)
 	}
-	redirect(PATH.ROOT)
+
+	return <>{children}</>
 }
